@@ -1,15 +1,14 @@
 import oauth2 as oauth
-import os
-from ConfigParser import SafeConfigParser
+import config
 
 base_url = "http://api.linkedin.com/v1"
 
 def client():
-    config = config_parser()
-    consumer_key = config.get('auth', 'consumer_key')
-    consumer_secret = config.get('auth', 'consumer_secret')
-    user_token = config.get('auth', 'user_token')
-    user_secret = config.get('auth', 'user_secret')
+    cfg = config.config_parser()
+    consumer_key = cfg.get('auth', 'consumer_key')
+    consumer_secret = cfg.get('auth', 'consumer_secret')
+    user_token = cfg.get('auth', 'user_token')
+    user_secret = cfg.get('auth', 'user_secret')
     # TODO: only works on profile for developer api user, add real oauth
     consumer = oauth.Consumer(consumer_key, consumer_secret)
     access_token = oauth.Token(user_token, user_secret)
@@ -23,9 +22,3 @@ def profile():
     return content
 
 
-def config_parser():
-    parser = SafeConfigParser()
-    parser.read('default.cfg')
-    # copy the above here and set app credentials
-    parser.read(os.path.expanduser('~/.linkedin.cfg'))
-    return parser
