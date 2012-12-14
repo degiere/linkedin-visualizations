@@ -9,5 +9,29 @@
 
 <p>Profile Id: {{id}}</p>
 
+<p>Industry: {{</p>
+
+<h2>Positions</h2>
+<ul>
+    {% for p in positions %}
+    <li>{{p.title}} | {{p.company.name}} | {{p.company.industry}}</li>
+    {% endfor %}
+</ul>
+
+<h2>Tokens</h2>
+
+<p>{{tokens}}</p>
+
+<h2>Frequently Occuring</h2>
+
+<p>{{frequent}}</p>
+
+<h2>Connections</h2>
+<ul>
+    {% for c in connections %}
+    <li>{{c.firstName}} {{c.lastName}} | {{c.industry}} | {{c.id}}</li>
+    {% endfor %}
+</ul>
+
 </body>
 </html>

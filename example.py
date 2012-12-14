@@ -1,9 +1,9 @@
 from linkedin import api, parser, text
 
-json = api.profile()
-print json
+json_prof = api.profile()
+print json_prof
 
-profile = parser.parse(json)
+profile = parser.parse(json_prof)
 print "Name: " + profile['firstName'] + ' ' + profile['lastName']
 
 positions = profile['positions']['values']
@@ -17,3 +17,7 @@ print ' '.join(tokens)
 freq = text.freq_dist(tokens, 3)
 print "Frequent:"
 print ' '.join(freq)
+
+json_conn = api.connections()
+connections = parser.parse(json_conn)['values']
+print parser.connections_str(connections)

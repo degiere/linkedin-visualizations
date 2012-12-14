@@ -22,3 +22,8 @@ def profile():
     return content
 
 
+def connections():
+    url = base_url + "/people/~/connections?format=json"
+    resp, content = client().request(url, "GET")
+    return content
+
