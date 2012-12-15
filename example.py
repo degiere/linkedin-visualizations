@@ -1,23 +1,32 @@
-from linkedin import api, parser, text
+from linkedin import api, parser, nlp
+import nltk
 
-json_prof = api.profile()
-print json_prof
+json = api.profile()
+#print json_prof
 
-profile = parser.parse(json_prof)
-print "Name: " + profile['firstName'] + ' ' + profile['lastName']
+profile = parser.parse(json)
+#print "Name: " + profile['firstName'] + ' ' + profile['lastName']
 
-positions = profile['positions']['values']
+raw = parser.raw(profile)
+raw = nlp.ascii(raw)
 
-positions_str = parser.positions_str(positions)
-tokens = text.tokenize(positions_str)
-tokens = text.meaning_words(tokens)
+tokens = nlp.tokenize(raw)
+tokens = nlp.normalize(tokens)
 print "Tokens:"
 print ' '.join(tokens)
 
-freq = text.freq_dist(tokens, 3)
+freq = nlp.freq_dist(tokens, 3)
 print "Frequent:"
 print ' '.join(freq)
 
-json_conn = api.connections()
-connections = parser.parse(json_conn)['values']
-print parser.connections_str(connections)
+vocab = nlp.vocabulary(tokens)
+print "Vocabulary: "
+print vocab
+
+text = nltk.Text(tokens)
+print "Text: " + str(type(text))
+
+
+#json_conn = api.connections()
+#connections = parser.parse(json_conn)['values']
+#print parser.connections_str(connections)
