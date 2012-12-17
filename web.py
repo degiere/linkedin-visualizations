@@ -1,6 +1,7 @@
 from linkedin import config, api, parser, text
 from flask import Flask, render_template, request
 
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -13,6 +14,7 @@ def index():
 @app.route("/profile")
 def profile():
     id = request.args.get('linkedin-id', '')
+
     # profile
     json_profile = api.profile()
     profile = parser.parse(json_profile)
@@ -21,9 +23,11 @@ def profile():
     tokens = text.tokenize(positions_str)
     token_str = ' '.join(text.meaning_words(tokens))
     freq = ' '.join(text.freq_dist(tokens, 3))
+
     # connections
     json_conn = api.connections()
     connections = parser.parse(json_conn)['values']
+
     # context
     context = {}
     context['id'] = id
@@ -35,6 +39,6 @@ def profile():
     return render_template('profile.html', **context)
 
 if __name__ == "__main__":
-# app.run()
+    # app.run()
     app.run(debug=True)
 

@@ -1,5 +1,7 @@
-import re, nltk
+import re
+import nltk
 from nltk.corpus import stopwords
+
 
 def tokenize(text):
     return nltk.regexp_tokenize(text, "[\w]+")

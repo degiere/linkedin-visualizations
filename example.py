@@ -1,5 +1,6 @@
 from linkedin import api, parser, text
 
+
 json_prof = api.profile()
 print json_prof
 
