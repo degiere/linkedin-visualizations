@@ -7,8 +7,14 @@ def parse(json_str):
 def positions_str(positions):
     s = ""
     for pos in positions:
-        s += pos['title'] + ' ' + pos['company']['name'] + ' ' + pos['summary'] + ' '
+        s += pos['title'] + '\n'
+        s += pos['company']['name'] + '\n'
+        s += pos['summary'] + '\n'
     return s
+
+
+def raw(profile):
+    return positions_str(positions = profile['positions']['values'])
 
 
 def connections_str(connections):
