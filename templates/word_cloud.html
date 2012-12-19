@@ -1,0 +1,66 @@
+<html>
+<script src="../../../Lib/JavaScript/d3/d3.v2.js"></script>
+<script src="../../../Lib/JavaScript/d3-cloud/d3.layout.cloud.js"></script>
+<body>
+<script>
+
+    var words = "Principal Consultant Program Manager Chris Degiere Associates Inc Lead numerous software development re architecture performance engineering projects several startups enterprise clients Hands development enterprise mobile web applications using Linux AWS Java JEE JavaScript Spring Framework Hibernate MySQL PostgreSQL Cassandra Handled business operations hiring managing staff financial projections contracts vendor relations sales marketing Reached client critical feature performance milestones often required close venture funding acquire key customers expand internationally Lead Software Data Engineer Visible Market Inc Redeveloped server web service database architecture award winning stock market data processing visualization application iPhone iPad Increased throughput various performance optimization techniques Staffed small team worked hands developed data features addressed performance bottlenecks Integrated Twitter news market data providers analysis charting Built web scraper information extraction system jsoup CSS selectors regular expressions Implemented payload reduction compression Jackson JSON parsers custom binary file formats Distributed data processing Amazon EC2 S3 Linux Java Spring Cassandra Senior Performance Consultant MomentumSI Lead end end application performance optimization efforts JP Morgan Chase diverse suite high transaction volume financial applications Performance analysis Java JEE WebLogic Oracle JavaScript web server side applications using DynaTrace JPerf HttpWatch Firebug Evaluated binary object serialization replacements compression algorithms reduce server side transfer response times Designed runtime HTML CSS JavaScript minification consolidation compression system Designed continuous performance monitoring framework Java JUnit Selenium Ant Hudson DynaTrace Reduced response times much internationally locations cutting load times several minutes Founder Trading Technicians Created financial market trading algorithms automated execution software using data mining genetic programming statistical analysis techniques Traded stocks commodity futures TradeStation platform expert Completed startup accelerator program raised seed trading capital Pivoted focus financial software consulting leading increase revenue Senior Software Engineer Jama Software Developed web server side software rapidly growing technology startup leading web application serving clients Department Defense Federal Reserve Honeywell Intel Wells Fargo ING Developed front end back end features using Java Spring Hibernate Lucene MySQL Amazon EC2 Ajax DWR ExtJS JavaScript Championed automated testing continuous integration efforts using JUnit Selenium Hudson Load tested complex dynamic web ui Java Selenium CSS selectors Amazon EC2 close large sales contract Software Engineering Consultant Ojingo Labs Consulted engineering projects rapidly growing web mobile video social networking application Lead performance scalability internationalization efforts Lead web video performance optimization efforts Firebug YSlow CDN vendors DevOps projects revision control builds test automation Subversion Ant JUnit Selenium Technologies EJB3 Struts2 JavaScript JBoss Red5 Hibernate PostgreSQL Amazon S3 EC2 Software Architect Lead Developer IRIS Distribution Acquired Lead web server side software engineering projects Java based financial media management applications distributing content online retailers mobile services video demand networks Hired staff worked outsourced teams implemented agile methodologies DevOps infrastructure Developed Java JavaScript Spring Acegi Quartz Apache VFS Hibernate Struts PosgreSQL Improved report rendering 5x improved data access patterns optimized SQL added Hibernate caching Cleaned data error handling sales integration system processing millions financial transactions Designed TB fault tolerant file store media archive system Lead Software Engineer Xoom Inc Lead web apps team built flagship international banking terminal application localized multiple languages currencies Developed schema transactional data layer MySQL Java Spring JDBC Developed web services web application using Tomcat Spring Acegi SOAP XML Built fuzzy match international address search system n gram indexing Lucene Python Championed unit testing best practices using Java JUnit HTMLUnit Senior Software Consultant Visa USA Designed developed Java reporting applications interfacing Visa Resolve Online first real time web application credit card dispute management resolution Coordinated several major banks including Bank America Merrill Lynch Wells Fargo improve end user reporting experience Developed web service client applications using Java HTTPClient Axis SOAP Ant Developed system interface testing sample applications using Java Axis C SOAP XML Senior Web Applications Engineer Topica Inc Developed web applications using HTML CSS JavaScript Perl Java Oracle SQL rapidly growing startup Assumed increasing responsibility lead projects scale one email community website three acclaimed advertising publishing applications delivering two billion emails per month Web Developer Systems Administrator Sun Microsystems Acquired Oracle Developed web applications Sun Asia Pacific Java technology sales engineer force data migration teams using HTML JavaScript Java Perl Administered Solaris NIS NFS Sendmail HTTPD servers wrote shell scripts performed large scale data migrations Web Developer Consultant UC Santa Barbara Developed web applications HTML JavaScript Perl Instructional Computing resource students faculty Designed curriculum lead software training courses web development Photoshop UNIX";
+
+	function countWordFrequency(w) {
+	  var freq={};
+	  var words = w.replace(/[^\w\s]/g, '').split(/\s+/);
+	  var len = words.length;
+		for (var i=0; i<len; i++) {
+		  // if (freq[words[i]]) { bug if one of the words is "constructor"!
+		  if (typeof freq[words[i]] === 'number') {
+			freq[words[i]] += 1;
+		  } else  {
+			freq[words[i]] = 1;
+		  }
+		}	  
+	  return freq;
+	}
+
+    function rePackMap(wordMap) {
+		var words = [];
+		for (var key in wordMap) {
+		    words.push({
+				text:key,
+				size:wordMap[key]*10
+			})
+		}
+		return words;
+	}
+	
+	
+  var fill = d3.scale.category20();
+  d3.layout.cloud().size([600, 600])
+      .words(rePackMap(countWordFrequency(words)))
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .font("Impact")
+      .fontSize(function(d) { return d.size; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+    d3.select("body").append("svg")
+        .attr("width", 600)
+        .attr("height", 600)
+      .append("g")
+        .attr("transform", "translate(300,300)")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return fill(i); })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+  }
+  
+</script>
+</body>
+</html>
