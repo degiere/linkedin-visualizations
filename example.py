@@ -1,8 +1,9 @@
 from linkedin import api, parser, nlp
 import nltk
 
-json = api.profile()
-#print json_prof
+
+json_prof = api.profile()
+print json_prof
 
 profile = parser.parse(json)
 #print "Name: " + profile['firstName'] + ' ' + profile['lastName']
