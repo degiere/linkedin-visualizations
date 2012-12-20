@@ -5,14 +5,14 @@ Basic web app with authentication, text processing on profile data, visualizatio
 
 Install Dependencies
 --------------------
-$ pip install nltk
-$ pip install flask
-$ pip install oauth2
-$ pip install Flask-Assets
-$ python -m nltk.downloader stopwords
+* pip install nltk
+* pip install flask
+* pip install oauth2
+* pip install Flask-Assets
+* python -m nltk.downloader stopwords
 
 Running
 -------
-$ python web.py
+* python web.py
 
 
