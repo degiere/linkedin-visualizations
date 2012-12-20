@@ -1,30 +1,89 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Profile App</title>
-</head>
+{% assets "js_d3" %}
+<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
 <body>
 
 <h1>Profile for {{profile.firstName}} {{profile.lastName}}</h1>
 
-<p><a href="/cloud">word cloud</a></p>
-
 <p>Profile Id: {{id}}</p>
 
-<h2>Positions</h2>
+<h2>Position List</h2>
 <ul>
     {% for p in positions %}
     <li>{{p.title}} | {{p.company.name}} | {{p.company.industry}}</li>
     {% endfor %}
 </ul>
 
-<h2>Tokens</h2>
+<!--
 
-<p>{{tokens}}</p>
-
-<h2>Frequently Occurring</h2>
+<h2>Frequently Occurring Terms</h2>
 
 <p>{{frequent}}</p>
+
+-->
+
+<h2>Position Summary Terms</h2>
+
+<script>
+
+    var words = "{{tokens}}";
+
+    function countWordFrequency(w) {
+        var freq={};
+        var words = w.replace(/[^\w\s]/g, '').split(/\s+/);
+        var len = words.length;
+        for (var i=0; i<len; i++) {
+            // if (freq[words[i]]) { bug if one of the words is "constructor"!
+            if (typeof freq[words[i]] === 'number') {
+                freq[words[i]] += 1;
+            } else  {
+                freq[words[i]] = 1;
+            }
+        }
+        return freq;
+    }
+
+    function rePackMap(wordMap) {
+        var words = [];
+        for (var key in wordMap) {
+            words.push({text:key, size:wordMap[key]*10})
+        }
+        return words;
+    }
+
+    function draw(words) {
+        d3.select("body").append("svg")
+                .attr("width", 600)
+                .attr("height", 600)
+                .append("g")
+                .attr("transform", "translate(300,300)")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function(d) { return d.size + "px"; })
+                .style("font-family", "Impact")
+                .style("fill", function(d, i) { return fill(i); })
+                .attr("text-anchor", "middle")
+                .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function(d) { return d.text; });
+    }
+
+
+    var fill = d3.scale.category10();
+    d3.layout.cloud()
+            .size([600, 600])
+            .words(rePackMap(countWordFrequency(words)))
+            .rotate(function() { return ~~(Math.random() * 2) * 90; })
+            .font("Impact")
+            .fontSize(function(d) { return d.size; })
+            .on("end", draw)
+            .start();
+
+</script>
 
 <h2>Connections</h2>
 <ul>

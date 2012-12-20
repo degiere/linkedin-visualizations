@@ -5,7 +5,7 @@ from flask.ext.assets import Environment, Bundle
 app = Flask(__name__)
 assets = Environment(app)
 
-jsD3 = Bundle('js/d3.v2.js', 'js/d3.layout.cloud.js',  output='gen/packed.js')
+jsD3 = Bundle('js/d3.v2.js', 'js/d3.layout.cloud.js', output='gen/packed.js')
 assets.register('js_d3', jsD3)
 
 
@@ -38,28 +38,6 @@ def profile():
     context['connections'] = connections
     context['frequent'] = freq
     return render_template('profile.html', **context)
-
-
-@app.route("/cloud")
-def cloud():
-    id = request.args.get('linkedin-id', '')
-    # profile
-    profile = parser.parse(api.profile())
-    positions = profile['positions']['values']
-    raw = nlp.ascii(parser.raw(profile))
-    tokens = nlp.tokenize(raw)
-    tokens = nlp.normalize(tokens)
-    token_str = ' '.join(tokens)
-    freq = ' '.join(nlp.freq_dist(tokens, 3))
-
-    # context
-    context = {}
-    context['id'] = id
-    context['profile'] = profile
-    context['positions'] = positions
-    context['tokens'] = token_str
-    context['frequent'] = freq
-    return render_template('word_cloud.html', **context)
 
 
 if __name__ == "__main__":

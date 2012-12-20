@@ -1,0 +1,9 @@
+# compiled
+*.py[cod]
+
+# ide files
+.idea
+
+# generated asset
+static/gen
+static/.webassets-cache/

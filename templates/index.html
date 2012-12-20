@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profile App</title>
+    <title>LinkedIn Profile Visualization</title>
     <script type="text/javascript" src="http://platform.linkedin.com/in.js">
         api_key: {{key}}
         authorize: true
@@ -12,16 +12,21 @@
 </head>
 
 <body>
-<h1>Sign-in with LinkedIn for profile analysis</h1>
+<h1>Sign-in with LinkedIn</h1>
 <script type="in/Login">
+
+    <div style="float: right;">
+        [ <a href="#" onclick="IN.User.logout();">Logout</a> ]
+    </div>
+
+    <div>
     <form action="/profile">
         Hello, <?js= firstName ?> <?js= lastName ?>.
         <input type="hidden" name="linkedin-id" value="<?js= id ?>"/>
         <input type="submit" name="submit" value="View Profile"/>
     </form>
-    <div>
-        [ <a href="#" onclick="IN.User.logout();">Logout</a> ]
     </div>
+
 </script>
 </body>
 </html>
