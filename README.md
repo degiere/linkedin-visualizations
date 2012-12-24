@@ -11,13 +11,20 @@ Install Dependencies
 * pip install Flask-Assets
 * python -m nltk.downloader stopwords
 
+* stunnel - https://www.stunnel.org/index.html
+
+
 Running
 -------
+* start up stunnel to proxy SSL
 * python web.py
+
 
 References
 ----------
 * http://developer.linkedin.com/
+  * https://apigee.com/embed/console
+  * http://developer.linkedinlabs.com/jsapi-console/#examples
 * http://nltk.org/
 * http://flask.pocoo.org/
 * http://www.jasondavies.com/wordcloud/

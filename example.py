@@ -1,8 +1,8 @@
-from linkedin import api, parser, nlp
+from linkedin import LinkedInApi, parser, nlp
 import nltk
 
 
-json_prof = api.profile()
+json_prof = LinkedInApi.profile()
 print json_prof
 
 profile = parser.parse(json)

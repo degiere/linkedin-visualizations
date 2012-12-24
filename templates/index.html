@@ -5,26 +5,32 @@
     <script type="text/javascript" src="http://platform.linkedin.com/in.js">
         api_key: {{key}}
         authorize: true
+        credentials_cookie: true
+        scope: r_fullprofile r_emailaddress r_network r_contactinfo rw_groups
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.5b1.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        function onAuth() {
+            $.post("https://" + window.location.hostname + ":5443/token-exchange");
+        }
+    </script>
 </head>
 
 <body>
 <h1>Sign-in with LinkedIn</h1>
-<script type="in/Login">
+<script type="in/Login" data-onAuth="onAuth">
 
     <div style="float: right;">
         [ <a href="#" onclick="IN.User.logout();">Logout</a> ]
     </div>
-
     <div>
-    <form action="/profile">
-        Hello, <?js= firstName ?> <?js= lastName ?>.
-        <input type="hidden" name="linkedin-id" value="<?js= id ?>"/>
-        <input type="submit" name="submit" value="View Profile"/>
-    </form>
+        <form action="/profile">
+            Hello, <?js= firstName ?> <?js= lastName ?>.
+            <input type="hidden" name="linkedin-id" value="<?js= id ?>"/>
+            <input type="submit" name="submit" value="View Profile"/>
+        </form>
     </div>
 
 </script>
