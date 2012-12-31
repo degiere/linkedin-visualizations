@@ -26,8 +26,6 @@ def token_exchange():
     oauth_token = None
     oauth_secret = None
 
-
-    print oauth_token
     if session.get('linkedin_oauth_token2'):
         print "SESSION"
         oauth_token = session.get('linkedin_oauth_token')
@@ -56,17 +54,22 @@ def token_exchange():
     oauth_token = request_token.get('oauth_token')
     session['linkedin_oauth_token'] = oauth_token
     session['linkedin_oauth_secret'] = oauth_secret
+    print oauth_token
+    print oauth_secret
     return "GOOD"
 
 
-@app.route("/profile")
-def profile():
+@app.route("/profile/<profileId>")
+def profile(profileId):
     authCookie = request.cookies.get('linkedin_oauth_%s' % cfg.get('auth', 'consumer_key'))
     authString = urllib.unquote(authCookie)
 
     # profile
     LinkedIn = LinkedInApi.LinkedInApi(session['linkedin_oauth_token'], session['linkedin_oauth_secret'])
-    profile = parser.parse(LinkedIn.profile())
+    profile = parser.parse(LinkedIn.profile(profileId))
+    print
+    #print profile
+    print
     positions = profile['positions']['values']
     raw = nlp.ascii(parser.raw(profile))
     tokens = nlp.tokenize(raw)
@@ -74,7 +77,13 @@ def profile():
     token_str = ' '.join(tokens)
     freq = ' '.join(nlp.freq_dist(tokens, 3))
     # connections
-    connections = parser.parse(LinkedIn.connections())['values']
+    parser_parse = parser.parse(LinkedIn.connections(profileId))
+    # we can't (yet) get to our connections connections
+    if 'message' in parser_parse.keys():
+        print parser_parse
+        connections = []
+    else:
+        connections = parser_parse['values']
     # context
     context = {}
     context['id'] = authString

@@ -22,15 +22,10 @@
 <h1>Sign-in with LinkedIn</h1>
 <script type="in/Login" data-onAuth="onAuth">
 
-    <div style="float: right;">
-        [ <a href="#" onclick="IN.User.logout();">Logout</a> ]
-    </div>
     <div>
-        <form action="/profile">
-            Hello, <?js= firstName ?> <?js= lastName ?>.
-            <input type="hidden" name="linkedin-id" value="<?js= id ?>"/>
-            <input type="submit" name="submit" value="View Profile"/>
-        </form>
+        Hello, <?js= firstName ?> <?js= lastName ?>.<br/>
+         * <a href="/profile/~">View profile</a>    <br/>
+         * <a href="#" onclick="IN.User.logout();">Logout</a><br/>
     </div>
 
 </script>
