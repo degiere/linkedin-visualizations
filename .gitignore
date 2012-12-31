@@ -7,3 +7,6 @@
 # generated asset
 static/gen
 static/.webassets-cache/
+
+#tokens
+tokens.py
