@@ -1,6 +1,6 @@
 from linkedin import LinkedInApi, parser, nlp
 import nltk
-from linkedin.tokens import user_token, user_secret
+from tokens import user_token, user_secret
 
 
 api = LinkedInApi.LinkedInApi(user_token, user_secret)
