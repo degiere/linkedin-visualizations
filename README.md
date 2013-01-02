@@ -16,7 +16,7 @@ Install Dependencies
 
 Running
 -------
-* start up stunnel to proxy SSL
+* start up stunnel to proxy SSL on port 5443
 * python web.py
 
 

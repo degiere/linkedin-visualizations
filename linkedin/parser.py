@@ -14,7 +14,7 @@ def positions_str(positions):
 
 
 def raw(profile):
-    return positions_str(positions = profile['positions']['values'])
+    return positions_str(positions=profile['positions']['values'])
 
 
 def connections_str(connections):

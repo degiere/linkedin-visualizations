@@ -88,7 +88,7 @@
 <h2>Connections</h2>
 <ul>
     {% for c in connections %}
-    <li>{{c.firstName}} {{c.lastName}} | {{c.industry}} | {{c.id}}</li>
+    <li>{{c.firstName}} {{c.lastName}} | {{c.industry}} | <a href="/profile/{{c.id}}">{{c.id}}</a></li>
     {% endfor %}
 </ul>
 
